@@ -1,5 +1,88 @@
 # java-lotto-precourse
 
+## 설계
+### 로또 번호에 중복된 숫자가 있는지 검증
+#### 방법1. Set을 이용한 가장 간단한 구현
+주어진 `LottoTest` 중 실패하는 테스트를 통과시키기 위해 그 구현을 고민했을 때,
+직관적으로 떠오른 방식은 중복을 허용하지 않는 `Set` 타입으로 변환했을 때의 사이즈와 비교하는 것이다(아래 코드 참고).
+```java
+// 방법1
+Set<Integer> set = Set.copyOf(numbers);
+if (set.size() != numbers.size()) {
+    throw new IllegalArgumentException("[ERROR] 로또 번호에 중복이 존재합니다.");
+}
+```
+
+#### 방법2. Set을 사용하지만 더 빠르게 예외 발생시키기
+물론 위 구현('방법1')은 중복 검증 테스트를 성공적으로 통과시킨다.
+
+하지만 "스트림 연산을 통해서도 해결할 수 있지 않을까?"하는 의문이 들었고,
+`how to find duplicated value using stream java`로 서칭했다.
+
+그렇게 [처음 찾은 글](https://stackoverflow.com/questions/68656381/how-to-find-duplicate-elements-in-a-stream-in-java)에서는
+스트림이 아니라 (내가 생각한 방법1과 유사하게) `Set`을 사용하는 방식을 제시했다.
+
+하지만 그 효율성 측면에서 차이가 있는데, 일단 해당 코드를 보자.
+```java
+// 방법2
+Set<Integer> set = new HashSet<>();
+for (Integer number : numbers) {
+    if (!set.add(number)) {
+        throw new IllegalArgumentException("[ERROR] 로또 번호에 중복이 존재합니다.");
+    }
+}
+```
+
+차이를 알겠는가? 방법1의 경우에는 일단 주어진 `numbers` ***전체를 순회***한 뒤에야 `size`를 통해 중복을 판단한다.
+
+하지만 방법2의 경우 각 요소를 `Set`에 `add`하면서 **_`false`가 리턴되는 순간 중복으로 판단_**한다.
+즉, 얼리 리턴처럼 조건을 만족하자마자 빠르게 종료되기 때문에 중복이 존재하지 않거나 중복이 끝에만 존재하는 경우를 제외하고는 더 우수한 성능이 기대된다.
+('기대된다'고 표현한 것은, `Set.copyOf` 메서드가 극한으로 최적화 되어 있어서 전체를 순회하지만, 단순한 순회 구현보다 훨씬 빠르게 동작하지 않을까? 하는 생각도 들기 때문이다)
+
+#### 방법3. 스트림을 이용해서 중복 여부 뿐만 아니라, 구체적인 중복 값까지 파악하기
+추가적으로 생긴 욕심은 '에러가 발생한 지점을 명확히 해주고 싶다!'는 것이었다.
+
+예를 들어 2주 차에서는 예외가 발생했을 때의 입력값 전체(`numbers`)를 메시지에 포함해줬지만,
+이번에는 그 중에서 실제로 예외의 원인이 되는 입력(중복된 숫자)만을 메시지에 포함해주고 싶다는 것이다.
+
+이에 대한 해결은 [이 글](https://www.baeldung.com/java-list-find-duplicates#1-using-filter-and-setadd-method)을 참고했다.
+
+예외의 원인이 되는 값 전체를 출력해주려면 결국 방법2처럼 빠른 예외를 발생시키지 못하고, 방법1처럼 전체를 순회해야 된다는 trade-off가 생기기는 한다.
+
+하지만 해당 미션에서의 도메인 룰이 '로또 번호는 6개'여야 함을 포함하고 있고, 구현에서 검증하기 때문에 결국 전체 순회로 인한 비효율이 유의미한 수준이 되지는 않음이 보장된다.
+
+전체 순회로 인해서 비효율이 생기려면 그 크기가 매우 커져야 하는데, 크기가 너무 큰 경우는 이미 로또 번호 개수에 대한 검증에서 예외 처리되기 때문이다.
+
+따라서 다음과 같은 구현을 채택한다.
+```java
+// 방법3
+Set<Integer> elements = new HashSet<>();
+List<Integer> list = numbers.stream()
+        .filter(n -> !elements.add(n))
+        .toList();
+```
+
+#### 방법4. 함수형 프로그래밍은 side effect 지양한다.
+다만, 방법3처럼 스트림이 외부 컨텍스트에 변화를 주거나(side effect) 의존하는 것은 함수형 프로그래밍의 지향점이 아님을 알고 있다.
+
+내가 의도하는 구현에서는 `중복된 값들`만 있으면 되지, `중복 없애고 남은 값들`까지는 필요하지 않기 때문에 다음과 같이 스트림을 사용하지 않고 구현하는 편이 좋겠다.
+
+(만약 `중복 없애고 남은 값들`도 필요한 경우라면 스트림의 `groupingBy`를 활용하면 side effect도 해소하고, 요구 사항 만족도 가능한 것으로 파악된다.)
+
+```java
+// 방법4
+Set<Integer> set = new HashSet<>();
+boolean duplicated = false;
+for (Integer number : numbers) {
+    if (!set.add(number)) {
+        duplicated = true;
+    }
+}
+if (duplicated) {
+    throw new IllegalArgumentException("[ERROR] 로또 번호에 중복이 존재합니다.");
+}
+```
+
 ## 3주 차 목표
 - [ ] 코드 컨벤션 중 class 선언부 다음에 빈 줄을 두지 말라는 컨벤션을 지킨다. (아래 `intellij-java-wooteco-style.xml` 중 일부 참고)
     ```xml
