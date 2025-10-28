@@ -22,14 +22,14 @@ public class Lotto {
 
     private static void validateNumbersSize(List<Integer> numbers) {
         if (numbers.size() != NUMBER_SIZE) {
-            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_COUNT_INVALID.build());
+            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_COUNT_INVALID.build(numbers.size()));
         }
     }
 
     private static void validateNoDuplicateNumbers(List<Integer> numbers) {
         Set<Integer> duplicates = findDuplicateNumbers(numbers);
         if (!duplicates.isEmpty()) { // TODO: 이거까지 duplicateExists로 추출해낼지 고민인데, 지금만으로도 의미가 명확하고, 추출은 투머치 같아서 아마 안 할 듯
-            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_DUPLICATED.build());
+            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_DUPLICATED.build(numbers));
         }
     }
 
