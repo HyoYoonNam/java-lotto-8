@@ -10,11 +10,15 @@ public class Lotto {
 
     private final List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    private Lotto(List<Integer> numbers) {
         validate(numbers);
         this.numbers = numbers.stream()
                 .map(LottoNumber::valueOf)
                 .toList();
+    }
+
+    public static Lotto from(List<Integer> numbers) {
+        return new Lotto(numbers);
     }
 
     private static void validate(List<Integer> numbers) {
