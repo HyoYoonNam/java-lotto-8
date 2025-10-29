@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,5 +18,17 @@ public class LottoNumberTest {
         LottoNumber lottoNumber = LottoNumber.valueOf(inRangednumber);
 
         assertThat(lottoNumber.getNumber()).isEqualTo(inRangednumber);
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} -> 예외 발생")
+    @ValueSource(ints = {
+            0, 46,  // 경계값
+            -1      // 음수
+    })
+    @DisplayName("숫자 범위를 벗어나는 로또 번호의 생성 시도에 대해서 예외를 발생시킨다.")
+    void valueOf_throwsException_numberOutOfRange(int outOfRangedNumber) {
+        assertThatThrownBy(() -> LottoNumber.valueOf(outOfRangedNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("[ERROR]", "범위", "1~45");
     }
 }

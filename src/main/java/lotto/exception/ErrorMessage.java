@@ -4,6 +4,7 @@ public enum ErrorMessage {
 
     LOTTO_NUMBER_COUNT_INVALID("로또 번호는 6개여야 합니다: "),
     LOTTO_NUMBER_DUPLICATED("로또 번호에 중복이 존재합니다: "),
+    LOTTO_NUMBER_OUT_OF_RANGE("로또 번호의 숫자 범위는 1~45까지입니다: "),
     ;
 
     private static final String MESSAGE_PREFIX = "[ERROR] ";

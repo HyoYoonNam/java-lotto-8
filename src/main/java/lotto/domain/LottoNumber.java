@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lotto.exception.ErrorMessage;
 
 public final class LottoNumber {
     private static final int LOWER_RANGE_INCLUSIVE = 1;
@@ -21,6 +22,10 @@ public final class LottoNumber {
     }
 
     public static LottoNumber valueOf(int number) {
+        if (UPPER_RANGE_INCLUSIVE < number || number < LOWER_RANGE_INCLUSIVE) {
+            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.build(number));
+        }
+
         return CACHE.get(number);
     }
 
