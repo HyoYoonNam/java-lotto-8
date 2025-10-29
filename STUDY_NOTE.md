@@ -40,3 +40,45 @@ public static IntStream rangeClosed(int startInclusive, int endInclusive) {
     }
 }
 ```
+
+## 2. 인스턴스를 캐싱해서 사용하는 객체의 equals 재정의
+reference: [이펙티브 자바 - 조슈아 블로크](https://product.kyobobook.co.kr/detail/S000001033066): 아이템10~11
+
+이펙티브 자바의 목차를 읽으면서 미션에 적용할 만한 주제에 대해 학습한 뒤 사용하고 있다.
+
+그 중 `equals`와 `hashCode`를 재정의 하라는 주제가 있는데, 내가 구현한 `LottoNumber` 클래스는 내부적으로 인스턴스를 캐싱 후 사용하기 때문에,
+기본적으로 `==`을 사용한 identity 비교를 하더라도 로또 번호가 같기만 하면 같은 객체로 판단할 수 있다.
+
+그래서 "`equals`를 재정의 하지 않아도 의도대로 동작하는데, 굳이 재정의 할 필요가 있을까?"하는 의문이 들었다.
+
+결론은 "**그래도 재정의 해야 한다!**"로 내렸다. 근거는 다음과 같다.
+
+내가 요구 사항으로 정의한 "로또 번호가 같으면 동일한 객체로 판단한다."에 대한 구현은 `equals` 재정의 또는 (기존처럼) 인스턴스 캐싱 등으로 할 수 있는데,
+결국 '구현에 의존'하여 특정 구현(인스턴스 캐싱)에서만 해당 요구 사항이 만족되는 상황이다.
+
+따라서 구현에 의존하지 않음과 이펙티브 자바에서 소개하는, 자바를 잘 쓰는 방법(정확히 뭐라고 표현해야 할 지 모르겠다)을 고려하여 `equals`를 재정의 해 두는 것이 적절하겠다.
+
+기존에 알고 있던 `equals` 표준 정의 방식은 다음과 같다.
+```java
+if (anObject == null || getClass() != anObject.getClass()) {
+    return false;
+}
+
+LottoNumber aLottoNumber = (LottoNumber) anObject;
+
+return number == aLottoNumber.number;
+```
+
+그런데 이펙티브 자바와 자바의 `String.equals` 구현을 보니 개선할 여지가 보여서 다음과 같이 개선한다.
+```java
+// 주의: instanceof를 사용한 pattern matching은 Java16+가 요구된다.
+@Override
+public boolean equals(Object anObject) {
+    if (this == anObject) {
+        return true;
+    }
+
+    return (anObject instanceof LottoNumber aLottoNumber)
+            && (number == aLottoNumber.number);
+}
+```

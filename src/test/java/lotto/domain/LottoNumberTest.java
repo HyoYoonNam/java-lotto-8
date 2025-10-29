@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,5 +31,14 @@ public class LottoNumberTest {
         assertThatThrownBy(() -> LottoNumber.valueOf(outOfRangedNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContainingAll("[ERROR]", "범위", "1~45");
+    }
+
+    @Test
+    @DisplayName("로또 번호가 같으면 동일한 객체로 판단한다")
+    void equals_returnTrue_numbersAreSame() {
+        LottoNumber lottoNumberA = LottoNumber.valueOf(1);
+        LottoNumber lottoNumberB = LottoNumber.valueOf(1);
+
+        assertThat(lottoNumberA.equals(lottoNumberB)).isTrue();
     }
 }

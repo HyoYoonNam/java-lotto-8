@@ -32,4 +32,19 @@ public final class LottoNumber {
     public int getNumber() {
         return number;
     }
+
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+
+        return (anObject instanceof LottoNumber aLottoNumber)
+                && (number == aLottoNumber.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(number);
+    }
 }
