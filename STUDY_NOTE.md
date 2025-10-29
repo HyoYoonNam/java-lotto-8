@@ -82,3 +82,20 @@ public boolean equals(Object anObject) {
             && (number == aLottoNumber.number);
 }
 ```
+
+## 3. Javadoc
+출처: 
+- [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html#s7-javadoc)
+- https://www.baeldung.com/javadoc
+- 이펙티브 자바
+
+내용이 짧고, 간단하고, 명확해서 자세히 정리할 필요는 없어 보인다. 미션을 진행하면서 필요한 내용을 학습하고 즉시 적용하기로 한다.
+
+### Google Java Style Guide
+- 첫 paragraph를 제외하고는 `<p>`태그로 시작한다. 태그와 첫 글자 사이에는 공백을 두지 않는다.
+- Block tags는 `@param`, `@return`, `@throws`, `@deprecated` 순서로 쓴다.
+  - 반드시 설명과 함께 해야 한다. 블록 태그만 단독으로 사용하지 않는다.
+  - 설명은 블록 태그에서 공백(스페이스)을 한 칸 주고 같은 줄에 적는 것으로 시작한다. 만약 줄이 부족하면 다음 줄로 이동하고, 4spaces 이상 띄워서 이어 작성한다.
+  - 블록 태그 즉, `@`이 등장하는 라인 기준으로 그 위 라인은 한 줄 띄운다(비운다).
+
+### 이펙티브 자바

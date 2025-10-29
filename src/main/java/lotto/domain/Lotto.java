@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Set;
 import lotto.exception.ErrorMessage;
 
+/**
+ * 이 클래스는 {@code equals}와 {@code hashCode}를 재정의 하지 않는다.
+ *
+ * <p>생성시 인자로 받은 {@code numbers}가 모두 동일하더라도 두 로또는 서로 다른 로또로 비교되어야 하기 때문이다.
+ * 예를 들어 3등 당첨인 1, 2, 3, 4, 5, 6 로또가 두 장 존재할 때 당첨된 로또의 수는 반드시 2개여야 한다.
+ */
 public class Lotto {
     private static final int NUMBER_SIZE = 6;
 
@@ -17,6 +23,12 @@ public class Lotto {
                 .toList();
     }
 
+    /**
+     * 로또 번호 6개를 받아 로또 1개를 리턴한다.
+     *
+     * @param numbers 로또가 가지는 로또 번호들; 그 수는 6개여야 하고, 서로 중복되면 안 된다.
+     * @return 6개의 번호를 가지는 로또
+     */
     public static Lotto from(List<Integer> numbers) {
         return new Lotto(numbers);
     }
