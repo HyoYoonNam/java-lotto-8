@@ -26,8 +26,12 @@ public class Lotto {
     /**
      * 로또 번호 6개를 받아 로또 1개를 리턴한다.
      *
-     * @param numbers 로또가 가지는 로또 번호들; 그 수는 6개여야 하고, 서로 중복되면 안 된다.
+     * @param numbers 로또가 가지는 로또 번호들; 그 수는 6개여야 하고, 서로 중복되면 안 된다. 또한 각 로또 번호는 1 이상 45 이하의 정수여야 한다.
      * @return 6개의 번호를 가지는 로또
+     * @throws IllegalArgumentException 아래 상황 중 하나라도 해당되면 예외가 발생한다.
+     *         - numbers가 가지는 로또 번호의 개수가 6개가 아닌 경우
+     *         - numbers가 가지는 로또 번호 사이에 중복이 존재하는 경우
+     *         - numbers가 가지는 로또 번호 중 1 이상 45 이하의 정수가 아닌 것이 존재하는 경우
      */
     public static Lotto from(List<Integer> numbers) {
         return new Lotto(numbers);

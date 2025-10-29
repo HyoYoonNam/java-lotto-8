@@ -132,18 +132,26 @@ public boolean equals(Object anObject) {
 
 ## 4. Unchecked Exception은 javadoc에 기술하면 절대 안 될까?
 출처:
-  - 이펙티브 자바
+  - 이펙티브 자바: 아이템49, 아이템56, 아이템74
   - [How do you document unchecked exceptions?](https://stackoverflow.com/questions/3746884/how-do-you-document-unchecked-exceptions)
   - [Avoid @throws in javadoc](http://www.javapractices.com/topic/TopicAction.do?Id=171)
 
-이펙티브 자바에서는 Unchecked Exception인 경우, 즉 메서드나 클래스 선언부에서 `throws`로 던지는 체크 예외가 아닌 경우는 javadoc에 `@throws`로 설명하지 말라고 한다.
+~~이펙티브 자바에서는 Unchecked Exception인 경우, 즉 메서드나 클래스 선언부에서 `throws`로 던지는 체크 예외가 아닌 경우는 javadoc에 `@throws`로 설명하지 말라고 한다.~~
 
-만약 발생할 수 있는 Unchecked Exception에 대한 설명을 적고 싶다면 `@throws`가 아니라, `@param` 등에 적으라고 한다.
+~~만약 발생할 수 있는 Unchecked Exception에 대한 설명을 적고 싶다면 `@throws`가 아니라, `@param` 등에 적으라고 한다.~~
 
-발생할 수 있는 런타임 예외는 코드를 잘 짜서 다 잡아서 처리할 수 있도록 하라는 의도같다.
+~~발생할 수 있는 런타임 예외는 코드를 잘 짜서 다 잡아서 처리할 수 있도록 하라는 의도같다.~~
 
-그런데 경우에 따라 "그렇게 빡빡하게 굴지 말고, 중요하다고 생각된다면 Unchecked Exception라도 `@throws`에 적어라!"라고 주장하는 이들도 꽤 있다. 판단 기준을 정해두고 팀마다 유연하게 결정해도 되겠다.
+~~그런데 경우에 따라 "그렇게 빡빡하게 굴지 말고, 중요하다고 생각된다면 Unchecked Exception라도 `@throws`에 적어라!"라고 주장하는 이들도 꽤 있다. 판단 기준을 정해두고 팀마다 유연하게 결정해도 되겠다.~~
 
-또한 해당 이번 미션에서도 "사용자가 잘못된 값을 입력한 경우 `IllegalArgumentException`을 발생시키고, ... 에러 메시지 출력 후 그 부분부터 입력을 다시 받는다."라는 요구 사항이 있는데 '잡아서 처리하라'는 요구로 보인다.
+~~또한 해당 이번 미션에서도 "사용자가 잘못된 값을 입력한 경우 `IllegalArgumentException`을 발생시키고, ... 에러 메시지 출력 후 그 부분부터 입력을 다시 받는다."라는 요구 사항이 있는데 '잡아서 처리하라'는 요구로 보인다.~~
 
-결론: Unchecked Exception(예를 들어 `LottoNumber.valueOf`에서의 `IllegalArgumentException`)은 잡아서 잘 처리하고, javadoc의 `@throws`에는 적지 말자!
+~~결론: Unchecked Exception(예를 들어 `LottoNumber.valueOf`에서의 `IllegalArgumentException`)은 잡아서 잘 처리하고, javadoc의 `@throws`에는 적지 말자!~~
+
+잠깐 정신이 나갔었나 보다...! 책 내용을 완전히 잘못 이해하고 있었다. 이제라도 깨달아서 다행이다.
+
+(이펙티브 자바에서 제시하는 내용들이 꽤나 고급 내용이고, 내가 시도해보지 않았던 것들 투성이라 머리에 과부하가 왔나 보다.. ㅠㅠ. 그런데 이렇게 이전보다 훨씬 개선된 작업을 하고 있다는게 너무 재밌다.)
+
+책에서 말한 진짜 내용은 "발생할 수 있는 (언체크 포함) 모든 예외는 `@throws`로 기술하되, 메서드 선언부에서의 `throws ...`에는 넣지 말라"라는 것이었다!!!
+
+'언체크 예외를 메서드 선언부 `throws`에 사용하는 방식'에 대해서는 [내가 작성했던 글: 언체크 예외에 대한 명시적 throws 선언시 예외 타입에 의한 컴파일 에러 발생](https://hyoyoonnam.github.io/posts/throw-runtime-exception-with-throws-Exception/)을 참고해도 좋다.

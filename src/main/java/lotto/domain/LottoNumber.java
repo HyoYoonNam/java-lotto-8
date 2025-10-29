@@ -30,6 +30,8 @@ public final class LottoNumber {
      * 인자로 받은 number에 대응되는 LottoNumber 객체를 리턴한다.
      *
      * @param number 리턴되는 LottoNumber 객체가 가지게 될 로또 번호; 1 이상이고 45 이하여야 한다.
+     * @throws IllegalArgumentException number가 범위를 벗어나면,
+     *         즉, ({@code number < 1 || number > 45})이면 발생한다.
      */
     public static LottoNumber valueOf(int number) {
         if (UPPER_RANGE_INCLUSIVE < number || number < LOWER_RANGE_INCLUSIVE) {
