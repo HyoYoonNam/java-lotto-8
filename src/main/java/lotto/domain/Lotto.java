@@ -8,11 +8,13 @@ import lotto.exception.ErrorMessage;
 public class Lotto {
     private static final int NUMBER_SIZE = 6;
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = numbers.stream()
+                .map(LottoNumber::valueOf)
+                .toList();
     }
 
     private static void validate(List<Integer> numbers) {
