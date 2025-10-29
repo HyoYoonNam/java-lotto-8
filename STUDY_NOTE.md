@@ -87,7 +87,7 @@ public boolean equals(Object anObject) {
 출처: 
 - [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html#s7-javadoc)
 - https://www.baeldung.com/javadoc
-- 이펙티브 자바
+- 이펙티브 자바: 아이템 56, 아이템 74
 
 내용이 짧고, 간단하고, 명확해서 자세히 정리할 필요는 없어 보인다. 미션을 진행하면서 필요한 내용을 학습하고 즉시 적용하기로 한다.
 
@@ -97,5 +97,53 @@ public boolean equals(Object anObject) {
   - 반드시 설명과 함께 해야 한다. 블록 태그만 단독으로 사용하지 않는다.
   - 설명은 블록 태그에서 공백(스페이스)을 한 칸 주고 같은 줄에 적는 것으로 시작한다. 만약 줄이 부족하면 다음 줄로 이동하고, 4spaces 이상 띄워서 이어 작성한다.
   - 블록 태그 즉, `@`이 등장하는 라인 기준으로 그 위 라인은 한 줄 띄운다(비운다).
+- `@Override` 메서드를 구현하는 경우에는 그 상위 메서드에서 이미 javadoc이 구현되었다면, 굳이 재정의 메서드에서는 작성하지 않아도 된다.
+  - `toString`, `equals` 등
 
 ### 이펙티브 자바
+- 상속용으로 설계된 클래스의 메서드가 아니라면 (그 메서드가 어떻게 동작하는지가 아니라) 무엇을 하는지를 기술해야 한다. 즉, how가 아닌 what을 기술해야 한다.
+- (코딩 표준에 따라서 다름) @return 태그의 설명이 메서드 설명과 같을 때 @return 태그를 생략해도 좋다.
+  - 즉, 메서드 설명에서 리턴을 포함한 전반적인 what 설명을 하는 것이 우선적
+- 다음 상황에서 상한/하한 값은 `private`이니 javadoc에 추가하지 않아야 한다. 대신 리터럴로 작성한다.  
+  리터럴 값이 바뀐다는 것은 API 스펙 자체의 변화를 의미하기에 당연히 Javadoc도 바뀌어야 함을 의미하기 때문에 리터럴로 적어도 좋다.
+  ```java
+  public final class LottoNumber {
+    private static final int LOWER_RANGE_INCLUSIVE = 1;
+    private static final int UPPER_RANGE_INCLUSIVE = 45;
+  
+      /**
+     * 인자로 받은 number에 대응되는 LottoNumber 객체를 리턴한다.
+     *
+     * @param number 로또 번호; 1 이상이고 45 이하여야 한다.
+     * @throws IllegalArgumentException number가 범위를 벗어나면,
+     *         즉, ({@code number < 1 || number > 45})이면 발생한다.
+     */
+    public static LottoNumber valueOf(int number) {
+        if (UPPER_RANGE_INCLUSIVE < number || number < LOWER_RANGE_INCLUSIVE) {
+            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.build(number));
+        }
+
+        return CACHE.get(number);
+    }
+  ```
+- 문서화 주석의 첫 문장의 첫 번째 마침표(`.`)가 나오는 부분에서 끊긴다. 이를 방지하려면 `{@literal}`로 감싸준다.
+  - 예를 들어 "머스터드 대령이나 Mrs. 피콕 같은 용의자." 대신 "머스터드 대령이나 {@literal Mrs.} 피콕 같은 용의자."로 작성함이 적절하다.
+  - (Java 10+) {@summary 머스터드 대령이나 Mrs. 피콕 같은 용의자.}처럼 요약 설명 전용 태그를 사용할 수 있다.
+
+## 4. Unchecked Exception은 javadoc에 기술하면 절대 안 될까?
+출처:
+  - 이펙티브 자바
+  - [How do you document unchecked exceptions?](https://stackoverflow.com/questions/3746884/how-do-you-document-unchecked-exceptions)
+  - [Avoid @throws in javadoc](http://www.javapractices.com/topic/TopicAction.do?Id=171)
+
+이펙티브 자바에서는 Unchecked Exception인 경우, 즉 메서드나 클래스 선언부에서 `throws`로 던지는 체크 예외가 아닌 경우는 javadoc에 `@throws`로 설명하지 말라고 한다.
+
+만약 발생할 수 있는 Unchecked Exception에 대한 설명을 적고 싶다면 `@throws`가 아니라, `@param` 등에 적으라고 한다.
+
+발생할 수 있는 런타임 예외는 코드를 잘 짜서 다 잡아서 처리할 수 있도록 하라는 의도같다.
+
+그런데 경우에 따라 "그렇게 빡빡하게 굴지 말고, 중요하다고 생각된다면 Unchecked Exception라도 `@throws`에 적어라!"라고 주장하는 이들도 꽤 있다. 판단 기준을 정해두고 팀마다 유연하게 결정해도 되겠다.
+
+또한 해당 이번 미션에서도 "사용자가 잘못된 값을 입력한 경우 `IllegalArgumentException`을 발생시키고, ... 에러 메시지 출력 후 그 부분부터 입력을 다시 받는다."라는 요구 사항이 있는데 '잡아서 처리하라'는 요구로 보인다.
+
+결론: Unchecked Exception(예를 들어 `LottoNumber.valueOf`에서의 `IllegalArgumentException`)은 잡아서 잘 처리하고, javadoc의 `@throws`에는 적지 말자!
