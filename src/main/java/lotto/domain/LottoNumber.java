@@ -7,10 +7,11 @@ import java.util.stream.IntStream;
 import lotto.exception.ErrorMessage;
 
 /**
- * 1이상 45 이하의 로또 번호 한 개를 나타내는 Value Object이다.
+ * 이 클래스는 1이상 45 이하의 로또 번호 한 개를 나타내는 Value Object이다.
  *
  * <p>이 클래스는 불변이며, {@code valueOf()} 정적 팩토리 메서드를 통해서만 인스턴스를 생성할 수 있다.
  */
+
 public final class LottoNumber {
     private static final int LOWER_RANGE_INCLUSIVE = 1;
     private static final int UPPER_RANGE_INCLUSIVE = 45;
