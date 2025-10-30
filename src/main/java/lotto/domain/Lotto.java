@@ -6,12 +6,16 @@ import java.util.Set;
 import lotto.exception.ErrorMessage;
 
 /**
- * 이 클래스는 {@code equals}와 {@code hashCode}를 재정의 하지 않는다.
+ * 이 클래스는 LottoNumber 6개를 가진다.
  *
- * <p>생성시 인자로 받은 {@code numbers}가 모두 동일하더라도 두 로또는 서로 다른 로또로 비교되어야 하기 때문이다.
+ * <p>이 클래스는 불변이기 때문에 가지고 있는 LottoNumber를 변경할 수 없다.
+ *
+ * <p>이 클래스는 {@code equals}와 {@code hashCode}를 재정의 하지 않는다.
+ * 생성시 인자로 받은 {@code numbers}가 모두 동일하더라도 두 로또는 서로 다른 로또로 비교되어야 하기 때문이다.
  * 예를 들어 3등 당첨인 1, 2, 3, 4, 5, 6 로또가 두 장 존재할 때 당첨된 로또의 수는 반드시 2개여야 한다.
  */
-public class Lotto {
+
+public final class Lotto {
     private static final int NUMBER_SIZE = 6;
 
     private final List<LottoNumber> numbers;
@@ -27,13 +31,14 @@ public class Lotto {
      * 로또 번호 6개를 받아 로또 1개를 리턴한다.
      *
      * @param numbers 로또가 가지는 로또 번호들; 그 수는 6개여야 하고, 서로 중복되면 안 된다. 또한 각 로또 번호는 1 이상 45 이하의 정수여야 한다.
-     * @return 6개의 번호를 가지는 로또
+     * @return 6개의 번호를 가지는 로또; 이 로또는 불변이기 때문에 가지고 있는 로또 번호를 변경할 수 없습니다.
      * @throws IllegalArgumentException 아래 상황 중 하나라도 해당되면 예외가 발생한다.
      *         - numbers가 가지는 로또 번호의 개수가 6개가 아닌 경우
      *         - numbers가 가지는 로또 번호 사이에 중복이 존재하는 경우
      *         - numbers가 가지는 로또 번호 중 1 이상 45 이하의 정수가 아닌 것이 존재하는 경우
      */
-    public static Lotto from(List<Integer> numbers) {
+    public static Lotto from(final List<Integer> numbers) {
+        List<Integer> copyOfNumbers = List.copyOf(numbers);
         return new Lotto(numbers);
     }
 
