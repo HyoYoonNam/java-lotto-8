@@ -134,6 +134,13 @@ public boolean equals(Object anObject) {
 - 클래스, 인터페이스 레벨의 javadoc은 javadoc의 마지막 부분(`*/`)과 클래스, 인터페이스 헤더 사이에 한 줄을 비운다.
   - 메서드의 경우는 javadoc과 메서드 헤더 부분 사이를 붙인다. 즉, 빈 줄을 두지 않는다.
 
+### 상수값 링크로 가져오기
+원래 전체 패키지 경로 안 적고도 되는 것 같은데, 일단 나는 실패했다.
+
+```java
+{@value lotto.constant.LottoConstant#LOTTO_PRICE}
+```
+
 ## 4. Unchecked Exception은 javadoc에 기술하면 절대 안 될까?
 출처:
   - 이펙티브 자바: 아이템49, 아이템56, 아이템74
