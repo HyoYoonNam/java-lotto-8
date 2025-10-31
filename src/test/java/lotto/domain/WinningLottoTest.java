@@ -1,0 +1,19 @@
+package lotto.domain;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class WinningLottoTest {
+    @DisplayName("당첨 번호와 보너스 번호 사이에 중복이 존재하면 예외를 발생한다.")
+    @Test
+    void of_throwsException_duplicatesBetweenWinningNumbersAndBonusNumber() {
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
+        int bonusNumber = 2;
+        assertThatThrownBy(() -> WinningLotto.of(winningNumbers, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("[ERROR]", "중복");
+    }
+}
