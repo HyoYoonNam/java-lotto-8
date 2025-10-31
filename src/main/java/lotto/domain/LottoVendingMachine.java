@@ -41,7 +41,10 @@ public final class LottoVendingMachine {
     }
 
     private static Lotto issue() {
-        List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
+        List<Integer> numbers = Randoms.pickUniqueNumbersInRange(
+                LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE,
+                LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE,
+                LottoConstant.LOTTO_NUMBER_SIZE);
         return Lotto.from(numbers);
     }
 }

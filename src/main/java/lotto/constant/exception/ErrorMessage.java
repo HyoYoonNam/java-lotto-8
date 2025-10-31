@@ -1,5 +1,8 @@
 package lotto.constant.exception;
 
+import java.text.DecimalFormat;
+import lotto.constant.LottoConstant;
+
 /**
  * 프로젝트에서 사용하는 에러 메시지.
  *
@@ -9,10 +12,12 @@ package lotto.constant.exception;
  */
 
 public enum ErrorMessage {
-    LOTTO_NUMBER_COUNT_INVALID("로또 번호는 6개여야 합니다: "),
+    LOTTO_NUMBER_COUNT_INVALID("로또 번호는 " + LottoConstant.LOTTO_NUMBER_SIZE + "개여야 합니다: "),
     LOTTO_NUMBER_DUPLICATED("로또 번호에 중복이 존재합니다: "),
-    LOTTO_NUMBER_OUT_OF_RANGE("로또 번호의 숫자 범위는 1~45까지입니다: "),
-    PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE("구입 금액은 1,000원 단위여야 합니다: "),
+    LOTTO_NUMBER_OUT_OF_RANGE("로또 번호의 숫자 범위는 " + LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE + "~"
+            + LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE + "까지입니다: "),
+    PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE("구입 금액은 "
+            + LottoConstant.LOTTO_PRICE_FORMATTED_TEXT + "원 단위여야 합니다: "),
     ;
 
     private static final String MESSAGE_PREFIX = "[ERROR] ";

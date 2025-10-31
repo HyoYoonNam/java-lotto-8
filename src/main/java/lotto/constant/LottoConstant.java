@@ -1,5 +1,7 @@
 package lotto.constant;
 
+import java.text.NumberFormat;
+
 /**
  * 이 클래스는 Lotto와 관련된 도메인 규칙을 관리하는 상수 전용 클래스이므로 인스턴스를 생성할 수 없다.
  *
@@ -15,6 +17,12 @@ public final class LottoConstant {
     public static final int LOTTO_NUMBER_SIZE = 6;
     /** 로또 한 장의 판매 가격 */
     public static final int LOTTO_PRICE = 1000;
+    /**
+     * {@code LOTTO_PRICE}를 천 단위마다 쉼표(,)로 구분한 문자열
+     */
+    public static final String LOTTO_PRICE_FORMATTED_TEXT =
+            NumberFormat.getInstance().format(LOTTO_PRICE);
+
 
     private LottoConstant() {
     }
