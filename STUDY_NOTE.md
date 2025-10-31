@@ -200,3 +200,9 @@ result.append(lottoAmount)
         .append(System.lineSeparator());
 //        .append("\n"); // 이건 적절하지 못하다. OS에 따라 개행으로 처리되지 않을 위험이 있다.
 ```
+
+## 6. 스트림 안에서 예외 처리
+출처:
+- [2주 차 PR 리뷰](https://github.com/woowacourse-precourse/java-calculator-8/pull/808/files/fc8a3f20f28310f9e0e91412bed5d1681e2061c2#r2460441509)
+- [기본적인 스트림 예외 처리](https://stackoverflow.com/questions/19757300/java-8-lambda-streams-filter-by-method-with-exception)
+- [스트림의 장점 중 하나인 'declarative'를 일지 않으면서 예외 처리](https://www.baeldung.com/java-streams-aggregate-exceptions#aggregating-exceptions-and-output-in-the-stream-pipeline-using-reflection)
