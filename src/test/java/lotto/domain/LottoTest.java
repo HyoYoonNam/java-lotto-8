@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
@@ -20,5 +21,13 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+    @DisplayName("로또가 가지는 로또 번호는 오름차순으로 정렬된다")
+    @Test
+    void from_ReturnSortedLottoNumbers_numbersAreUnsorted() {
+        List<Integer> unsortedNumbers = List.of(1, 5, 2, 4, 6, 3);
+
+        Lotto lotto = Lotto.from(unsortedNumbers);
+
+        assertThat(lotto.getNumbers()).isSorted();
+    }
 }

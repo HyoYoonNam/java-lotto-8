@@ -12,10 +12,12 @@ import lotto.constant.exception.ErrorMessage;
  * 이 클래스는 {@value lotto.constant.LottoConstant#LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE}이상
  * {@value lotto.constant.LottoConstant#LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE} 이하의 로또 번호 한 개를 나타내는 Value Object이다.
  *
+ * <p>이 클래스는 자신이 나타내는 로또 번호를 기준으로 오름차순 정렬된다.
+ *
  * <p>이 클래스는 불변이며, {@code valueOf()} 정적 팩토리 메서드를 통해서만 인스턴스를 생성할 수 있다.
  */
 
-public final class LottoNumber {
+public final class LottoNumber implements Comparable<LottoNumber> {
     private static final Map<Integer, LottoNumber> CACHE = new HashMap<>(
             IntStream.rangeClosed(LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE,
                             LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE)
@@ -64,6 +66,11 @@ public final class LottoNumber {
     @Override
     public int hashCode() {
         return Integer.hashCode(number);
+    }
+
+    @Override
+    public int compareTo(LottoNumber lottoNumber) {
+        return Integer.compare(number, lottoNumber.number);
     }
 
     @Override

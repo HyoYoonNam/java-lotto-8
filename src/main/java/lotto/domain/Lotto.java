@@ -4,6 +4,7 @@ package lotto.domain;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 import lotto.constant.LottoConstant;
 import lotto.constant.exception.ErrorMessage;
 
@@ -26,11 +27,13 @@ public final class Lotto {
         validate(numbers);
         this.numbers = numbers.stream()
                 .map(LottoNumber::valueOf)
+                .sorted()
                 .toList();
     }
 
     /**
-     * 로또 번호 {@value lotto.constant.LottoConstant#LOTTO_NUMBER_SIZE}개를 받아 로또 1개를 리턴한다.
+     * 로또 번호 {@value lotto.constant.LottoConstant#LOTTO_NUMBER_SIZE}개를 받아
+     * 번호들을 오름차순 정렬된 상태로 가지는 로또 1개를 리턴한다.
      *
      * @param numbers 이 로또가 가지는 로또 번호들
      *        그 수는 {@value lotto.constant.LottoConstant#LOTTO_NUMBER_SIZE}개여야 하고, 서로 중복되면 안 된다.
@@ -73,5 +76,12 @@ public final class Lotto {
         });
 
         return duplicates;
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers.stream()
+                .mapToInt(LottoNumber::getNumber)
+                .boxed()
+                .toList();
     }
 }
