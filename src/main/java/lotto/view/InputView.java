@@ -3,6 +3,7 @@ package lotto.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 import java.util.stream.Stream;
+import lotto.constant.exception.ErrorMessage;
 
 /**
  * 이 클래스는 사용자로부터 입력을 받는 것과, 입력을 받기 위한 프롬프트 출력을 담당한다.
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
 public final class InputView {
     private static final String READ_WINNING_NUMBERS_PROMPT = "당첨 번호를 입력해 주세요.";
     private static final String INPUT_DELIMITER = ",";
-    private static final String INPUT_IS_NOT_INTEGER = "입력된 값이 숫자가 아닙니다: %s";
+    private static final String INPUT_IS_NOT_INTEGER = ErrorMessage.MESSAGE_PREFIX + "입력된 값이 숫자가 아닙니다: %s";
     private static final String READ_BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
 
     /**

@@ -20,7 +20,7 @@ public enum ErrorMessage {
             + LottoConstant.LOTTO_PRICE_FORMATTED_TEXT + "원 단위여야 합니다: "),
     ;
 
-    private static final String MESSAGE_PREFIX = "[ERROR] ";
+    public static final String MESSAGE_PREFIX = "[ERROR] ";
     private final String message;
 
     ErrorMessage(String message) {
