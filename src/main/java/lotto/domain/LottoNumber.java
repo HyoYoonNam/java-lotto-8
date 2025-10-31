@@ -1,12 +1,11 @@
 package lotto.domain;
 
-import static lotto.constant.LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE;
-import static lotto.constant.LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lotto.constant.LottoConstant;
 import lotto.constant.exception.ErrorMessage;
 
 /**
@@ -18,7 +17,8 @@ import lotto.constant.exception.ErrorMessage;
 
 public final class LottoNumber {
     private static final Map<Integer, LottoNumber> CACHE = new HashMap<>(
-            IntStream.rangeClosed(LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE, LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE)
+            IntStream.rangeClosed(LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE,
+                            LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE)
                     .boxed()
                     .collect(Collectors.toMap(number -> number, LottoNumber::new))
     );
@@ -38,7 +38,8 @@ public final class LottoNumber {
      * @throws IllegalArgumentException {@code @param}의 전제를 위반하면 발생한다.
      */
     public static LottoNumber valueOf(int number) {
-        if (LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE < number || number < LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE) {
+        if (LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE < number ||
+                number < LottoConstant.LOTTO_NUMBER_LOWER_RANGE_INCLUSIVE) {
             // TODO: 상위 계층에서 예외 처리 필요 (입력 다시 받게)
             throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.build(number));
         }

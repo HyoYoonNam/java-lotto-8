@@ -1,10 +1,10 @@
 package lotto.domain;
 
-import static lotto.constant.LottoConstant.LOTTO_PRICE;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import lotto.constant.LottoConstant;
 import lotto.constant.exception.ErrorMessage;
 
 /**
@@ -26,14 +26,14 @@ public final class LottoVendingMachine {
      * @see Lotto
      */
     public static List<Lotto> purchase(final int purchaseAmount) {
-        boolean isDivisibleByLottoPrice = purchaseAmount % LOTTO_PRICE == 0;
+        boolean isDivisibleByLottoPrice = purchaseAmount % LottoConstant.LOTTO_PRICE == 0;
         if (!isDivisibleByLottoPrice) {
             throw new IllegalArgumentException(ErrorMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE
                     .build(purchaseAmount));
         }
 
         List<Lotto> lottos = new ArrayList<>();
-        int lottoAmount = purchaseAmount / LOTTO_PRICE;
+        int lottoAmount = purchaseAmount / LottoConstant.LOTTO_PRICE;
         for (int i = 0; i < lottoAmount; i++) {
             lottos.add(issue());
         }

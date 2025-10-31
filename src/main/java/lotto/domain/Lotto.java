@@ -1,10 +1,10 @@
 package lotto.domain;
 
-import static lotto.constant.LottoConstant.LOTTO_NUMBER_SIZE;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lotto.constant.LottoConstant;
 import lotto.constant.exception.ErrorMessage;
 
 /**
@@ -50,7 +50,7 @@ public final class Lotto {
     }
 
     private static void validateNumbersSize(List<Integer> numbers) {
-        if (numbers.size() != LOTTO_NUMBER_SIZE) {
+        if (numbers.size() != LottoConstant.LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_COUNT_INVALID.build(numbers.size()));
         }
     }
