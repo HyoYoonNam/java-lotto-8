@@ -4,7 +4,6 @@ package lotto.domain;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 import lotto.constant.LottoConstant;
 import lotto.constant.exception.ErrorMessage;
 
@@ -83,5 +82,10 @@ public final class Lotto {
                 .mapToInt(LottoNumber::getNumber)
                 .boxed()
                 .toList();
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }

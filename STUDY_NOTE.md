@@ -166,3 +166,37 @@ public boolean equals(Object anObject) {
 책에서 말한 진짜 내용은 "발생할 수 있는 (언체크 포함) 모든 예외는 `@throws`로 기술하되, 메서드 선언부에서의 `throws ...`에는 넣지 말라"라는 것이었다!!!
 
 '언체크 예외를 메서드 선언부 `throws`에 사용하는 방식'에 대해서는 [내가 작성했던 글: 언체크 예외에 대한 명시적 throws 선언시 예외 타입에 의한 컴파일 에러 발생](https://hyoyoonnam.github.io/posts/throw-runtime-exception-with-throws-Exception/)을 참고해도 좋다.
+
+## 5. 개행을 위한 "\n"과 System.lineSeparator()
+출처:
+- [System.out.println()을 테스트 하는 방법](https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/)
+- [JAVA 줄바꿈 대하여: 출력 개행에 \n을 쓰면 안된다고??](https://engineerinsight.tistory.com/14)
+
+2주 차 때 `System.out.println()`에 대한 테스트를 하는 방법을 찾던 중, `System.lineSeparator()`라는 녀석을 보았다.
+
+당시에는 그냥 단순히 "`\n` 리터럴 대신 명확한 이름으로 쓰기 위함인가?" 정도로만 생각하고 넘어 갔는데, 이번 3주 차에서 추가로 서칭을 해보니 그 원리를 더 알고 사용하는 것이 적절하다고 생각해서 학습을 진행한다.
+
+우리가 무심코 사용하던 `System.out.println()`가 내부적으로 어떻게 개행을 처리하는지 결국 내부 구현을 따라가다 보면 알 수 있는데, 그 흐름을 아래와 같이 하나의 사진으로 정리해봤다.
+
+![System-out-println()의 개행 처리 흐름](https://github.com/user-attachments/assets/b96631e4-7227-4828-857a-16dd9d983b4e)
+
+결론적으로, 자바 표준 출력도 `\n`이 아니라, `System.lineSeparator()`로 개행을 처리한다. 이에 대한 설명은 javadoc에 명확히 되어 있어서, 별 다른 번역없이 이를 첨부만 하겠다.
+
+> Returns the _system-dependent_ line separator string.
+> 
+> It always returns the same value - the initial value of the system property line.separator.
+> 
+> On UNIX systems, it returns "\n"; on Microsoft Windows systems it returns "\r\n".
+> 
+> Returns:
+> 
+> the _system-dependent_ line separator string
+
+따라서, `StringBuilder`에서 개행을 추가하기 위해서는 다음과 같이 해야 된다.
+```java
+StringBuilder result = new StringBuilder();
+result.append(lottoAmount)
+        .append("개를 구매했습니다.")
+        .append(System.lineSeparator());
+//        .append("\n"); // 이건 적절하지 못하다. OS에 따라 개행으로 처리되지 않을 위험이 있다.
+```
