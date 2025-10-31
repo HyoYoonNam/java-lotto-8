@@ -207,13 +207,7 @@ V.O.를 알지 못하던 때였다면 당연스레 `Lotto` 내부에서 범위 �
 - `int readLineAsInt()`: 내부적으로 형변환을 거쳐 `int`로 리턴한다.
 
 그리고 당첨 번호와 보너스 번호를 입력해달라는 프롬프트 출력과 실제로 입력받는 기능의 구현 메서드는 다음과 같이 네이밍 한다.
-
-([이 설계](#당첨-번호와-보너스-번호)를 진행하면서 보니 좀 애매한 부분이 있다.
-보너스 번호를 제외한 6개를 winning numbers라고 하는 경우도 있고, 6개는 regular numbers, main numbers 등이라고 하고
-보너스 번호까지 포함한 7개를 winning numbers라고 하는 경우도 있다.
-그런데 해당 미션에서는 '6개 번호와 보너스 번호를 하나로 묶어서 볼 필요'가 있으므로 6개를 regular numbers, 보너스 번호를 bonus number라고 하면서
-전체 7개를 winning numbers라고 표현함이 적절하겠다.)
-- ~~`readWinningNumbers`~~ `readRegularNumbers`
+- `readWinningNumbers`
 - `readBonusNumber`
 
 네이밍은 구글 검색을 통해 다음을 참고했다. (regular numbers와 extra number라는 표현도 사용 가능함~~으로 보이지만 이름의 직관성이 부족하다고 생각한다.~~)
@@ -262,7 +256,11 @@ validate -> validator, produce -> producer처럼 statistics -> statisticor...?�
 
 ![당첨-번호에는-메인-넘버와-보너스-넘버가-포함된다](https://github.com/user-attachments/assets/0a8f1285-5522-452b-9b2d-d6752625bcdc)
 
-실사례를 보니 당첨 번호라는 표현은 메인 넘버와 보너스 넘버를 모두 포함하는 것으로 봐야 옳겠다..!! 이에 따라 [InputView](#InputView)의 네이밍도 변경한다.
+~~실사례를 보니 당첨 번호라는 표현은 메인 넘버와 보너스 넘버를 모두 포함하는 것으로 봐야 옳겠다..!! 이에 따라 [InputView](#InputView)의 네이밍도 변경한다.~~
+
+입출력 예시에서 '당첨 번호'라는 표현일 때 6개의 번호만 입력하는 시나리오미므로, 당첨 번호 = 6개 + 보너스 번호라고 판단함은 적절하지 않겠다는 것이 최종 판단이다. (네이밍이 너무 혼란스러워서 자주 바꾸게 된다 ㅠㅠ)
+
+당첨 번호 6개와 보너스 번호 1개를 포함하기 위한 객체는 그냥 '당첨 로또' 즉, `WinningLotto`라고 하자!!!
 
 ## 3주 차 목표
 - [ ] 코드 컨벤션 중 class 선언부 다음에 빈 줄을 두지 말라는 컨벤션을 지킨다. (아래 `intellij-java-wooteco-style.xml` 중 일부 참고)
