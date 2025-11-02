@@ -2,7 +2,6 @@ package lotto.domain;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lotto.constant.exception.ErrorMessage;
 
 /**
@@ -45,5 +44,19 @@ public final class WinningLotto {
 
     public int getBonusNumber() {
         return bonusNumber.getNumber();
+    }
+
+    /**
+     * 입력받은 {@code lotto}가 이 {@code WinningLotto}의 당첨 번호와 일치하는 번호의 개수를 리턴한다.
+     *
+     * @param lotto 당첨 개수를 계산할 로또
+     * @throws IllegalArgumentException {@code @param lotto}의 전제를 위반하면 발생한다.
+     */
+    public int calculateMatchCount(Lotto lotto) {
+        // 도메인 규칙상 해당 값은 6 이하임이 보장된다.
+        return (int) lotto.getNumbers().stream()
+                .map(LottoNumber::valueOf)
+                .filter(winningNumbers::contains)
+                .count();
     }
 }

@@ -20,6 +20,7 @@ import lotto.constant.exception.ErrorMessage;
  */
 
 public final class Lotto {
+    // TODO: 포함 여부를 계산할 일이 있으니 Set에 보관해도 좋을 듯
     private final List<LottoNumber> numbers;
 
     private Lotto(List<Integer> numbers) {
