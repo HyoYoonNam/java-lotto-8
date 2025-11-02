@@ -11,7 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class LottoGameStatisticsCalculatorTest {
+class WinningStatisticsCalculatorTest {
 
     @DisplayName("로또의 당첨 통계량들을 계산한다.")
     @ParameterizedTest(name = "[{index}] 성공")
@@ -22,7 +22,7 @@ class LottoGameStatisticsCalculatorTest {
             Map<WinningInformation, Integer> expectedStats,
             double expectedRateOfReturn) {
 
-        LottoGameStatisticDto statistic = LottoGameStatisticsCalculator.calculate(winningLotto, lottos);
+        WinningStatisticDto statistic = WinningStatisticsCalculator.calculate(winningLotto, lottos);
 
         assertThat(statistic.winningMap()).isEqualTo(expectedStats);
         assertThat(statistic.rateOfReturn()).isEqualTo(expectedRateOfReturn);

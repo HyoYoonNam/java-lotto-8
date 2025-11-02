@@ -12,17 +12,17 @@ import lotto.constant.LottoConstant;
  * <p>이 클래스는 불변이므로 상속할 수 없다. 또한 인스턴스를 생성할 수 없는 정적 유틸 클래스이다.
  */
 
-public final class LottoGameStatisticsCalculator {
-    private LottoGameStatisticsCalculator() {
+public final class WinningStatisticsCalculator {
+    private WinningStatisticsCalculator() {
     }
 
     /** 당첨 로또와 구매한 로또 목록을 받아 여러 통계량 계산하여 리턴한다. */
-    public static LottoGameStatisticDto calculate(final WinningLotto winningLotto,
-                                                  final List<Lotto> lottos) {
+    public static WinningStatisticDto calculate(final WinningLotto winningLotto,
+                                                final List<Lotto> lottos) {
         Map<WinningInformation, Integer> winningMap = calculateWinningInformation(winningLotto, lottos);
         double rateOfReturn = calculateRateOfReturn(winningMap, lottos.size() * LottoConstant.LOTTO_PRICE);
 
-        return new LottoGameStatisticDto(winningMap, rateOfReturn);
+        return new WinningStatisticDto(winningMap, rateOfReturn);
     }
 
     private static Map<WinningInformation, Integer> calculateWinningInformation(WinningLotto winningLotto,

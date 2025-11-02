@@ -8,5 +8,5 @@ import java.util.Map;
  * <p> 이 DTO는 {@code record}로 선언되었으므로 불변임을 보장한다.
  */
 
-public record LottoGameStatisticDto(Map<WinningInformation, Integer> winningMap, double rateOfReturn) {
+public record WinningStatisticDto(Map<WinningInformation, Integer> winningMap, double rateOfReturn) {
 }

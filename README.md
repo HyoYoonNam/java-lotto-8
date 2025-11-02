@@ -227,9 +227,12 @@ validate -> validator, produce -> producer처럼 statistics -> statisticor...?�
 
 ~~대안으로 `LottoStatisticsCalculator`로 네이밍 하기로 한다.~~
 
-(기존 네이밍이 뭔가 Lotto 자체에 종속된 느낌이라 다음과 같이 바꾼다. Lotto 자체로는 어떤 통계량을 계산할 수 없고, 내가 계산하려는 통계량은 '로또 게임의 통계량'이기 때문!)
+~~(기존 네이밍이 뭔가 Lotto 자체에 종속된 느낌이라 다음과 같이 바꾼다. Lotto 자체로는 어떤 통계량을 계산할 수 없고, 내가 계산하려는 통계량은 '로또 게임의 통계량'이기 때문!)~~
 
-`LottoGameStatisticsCalculator`
+~~`LottoGameStatisticsCalculator`~~
+
+(막상 구현하고 나니, 로또 게임의 여러 기능 중 하나가 당첨 통계 계산일 뿐이라는 생각으로 바뀌었다. 즉, '로또 게임에 대한 통계'가 아니고, '당첨 통계'라고 부름이 더 적절하다는 것이다.
+이에 따라 `LottoGameStatisticsCalculator`와 `LottoGameStatisticDto`의 접두사를 `LottoGame`에서 `Winning`으로 변경한다.)
 
 해당 객체가 어떤 값을 뱉어내야 되는지 판단하기 위해서는 결국 "최종 출력을 위해 어떤 정보가 필요한지"를 고민하면 되겠다.
 - 각 당첨 순위에 해당하는 로또의 수
