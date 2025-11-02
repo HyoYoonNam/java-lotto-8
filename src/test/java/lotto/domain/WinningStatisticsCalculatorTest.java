@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class WinningStatisticsCalculatorTest {
-
     @DisplayName("로또의 당첨 통계량들을 계산한다.")
     @ParameterizedTest(name = "[{index}] 성공")
     @MethodSource("provideCalculateArguments")
