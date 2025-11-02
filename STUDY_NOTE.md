@@ -219,3 +219,10 @@ result.append(lottoAmount)
 ```
 
 위와 같이 당첨 내역을 출력할 때, `(3개 일치, 5000원)`, `(4개 일치, 50000원)`과 같이 서로 연관 있는 정보를 짝지어서 관리할 필요성을 느꼈다.
+
+## 8. DTO와 Record (Java 16+)
+출처: [자바 DTO vs Record, 무엇을 사용해야 할까?](https://yozm.wishket.com/magazine/detail/2814/)
+
+`LottoGameStatisticDto`를 구현했는데, 인텔리제이가 `Convert to record class`라며 추천해 주길래 관련 내용을 찾고, 적용했다.
+
+결론적으로, DTO가 별 다른 값 수정을 필요로 하지 않는다면 `record`로 선언하는 편이 자바 문법상으로 불변임을 보장하고, 불변을 위한 구현 코드들을 생략할 수 있어 좋다.
