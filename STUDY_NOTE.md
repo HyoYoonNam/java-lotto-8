@@ -206,3 +206,16 @@ result.append(lottoAmount)
 - [2주 차 PR 리뷰](https://github.com/woowacourse-precourse/java-calculator-8/pull/808/files/fc8a3f20f28310f9e0e91412bed5d1681e2061c2#r2460441509)
 - [기본적인 스트림 예외 처리](https://stackoverflow.com/questions/19757300/java-8-lambda-streams-filter-by-method-with-exception)
 - [스트림의 장점 중 하나인 'declarative'를 일지 않으면서 예외 처리](https://www.baeldung.com/java-streams-aggregate-exceptions#aggregating-exceptions-and-output-in-the-stream-pipeline-using-reflection)
+
+## 7. Enum에 여러 정보 담기
+출처: [Java Enum 활용기 - 우아한기술블로그](https://techblog.woowahan.com/2527/)
+
+```text
+3개 일치 (5,000원) - 1개
+4개 일치 (50,000원) - 0개
+5개 일치 (1,500,000원) - 0개
+5개 일치, 보너스 볼 일치 (30,000,000원) - 0개
+6개 일치 (2,000,000,000원) - 0개
+```
+
+위와 같이 당첨 내역을 출력할 때, `(3개 일치, 5000원)`, `(4개 일치, 50000원)`과 같이 서로 연관 있는 정보를 짝지어서 관리할 필요성을 느꼈다.
