@@ -12,10 +12,21 @@ import lotto.constant.exception.ErrorMessage;
  */
 
 public final class InputView {
+    private static final String READ_PURCHASE_AMOUNT_PROMPT = "구입 금액을 입력해주세요.";
     private static final String READ_WINNING_NUMBERS_PROMPT = "당첨 번호를 입력해 주세요.";
     private static final String INPUT_DELIMITER = ",";
     private static final String INPUT_IS_NOT_INTEGER = ErrorMessage.MESSAGE_PREFIX + "입력된 값이 숫자가 아닙니다: %s";
     private static final String READ_BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
+
+    /**
+     * 로또를 구입할 금액을 입력받아 리턴한다.
+     *
+     * @throws IllegalArgumentException 입력이 숫자가 아니라면 발생한다.
+     */
+    public static int readPurchaseAmount() {
+        System.out.println(READ_PURCHASE_AMOUNT_PROMPT);
+        return readLineAsInt();
+    }
 
     /**
      * 콤마(,)로 구분된 당첨 번호 목록을 입력받고, 콤마(,) 기준으로 분리하여 리턴한다.
