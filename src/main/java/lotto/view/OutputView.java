@@ -1,8 +1,12 @@
 package lotto.view;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Map;
 import lotto.domain.lotto.Lotto;
 import lotto.domain.lotto.LottoNumber;
+import lotto.domain.winning.WinningInformation;
+import lotto.domain.winning.WinningStatisticDto;
 
 /**
  * 이 클래스는 프로그램의 출력을 담당한다.
@@ -13,6 +17,8 @@ import lotto.domain.lotto.LottoNumber;
 public final class OutputView {
     private static final String NEW_LINE = System.lineSeparator();
     private static final String PURCHASED_MESSAGE_FORMAT = "%d개를 구매했습니다.";
+    private static final String PRINT_WINNING_STATISTIC_HEADER = "당첨 통계" + NEW_LINE + "---";
+    private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f입니다.";
 
     private OutputView() {
     }
@@ -35,5 +41,48 @@ public final class OutputView {
         }
 
         System.out.print(textOutputBuilder.toString());
+    }
+
+    /**
+     * 당첨 통계량들이 들어 있는 {@code winningStatisticDto}를 받아 당첨 통계 정보들을 출력한다.
+     *
+     * @param winningStatisticDto 구입한 로또 목록과 당첨 로또를 이용하여 계산된 통계량들이 들어 있는 당첨 통계 DTO
+     */
+    public static void printWinningStatistic(WinningStatisticDto winningStatisticDto) {
+        System.out.println(PRINT_WINNING_STATISTIC_HEADER);
+
+        System.out.println(getWinningInformationLines(winningStatisticDto.winningMap()));
+
+        System.out.println(String.format(RATE_OF_RETURN_FORMAT, winningStatisticDto.rateOfReturn()));
+    }
+
+    private static String getWinningInformationLines(Map<WinningInformation, Integer> winningMap) {
+        StringBuilder result = new StringBuilder();
+
+        for (WinningInformation winningInfo : winningMap.keySet()) {
+            if (winningInfo == WinningInformation.EMPTY) {
+                continue;
+            }
+
+            result.append(winningInfo.getMatchCount())
+                    .append("개 일치")
+                    .append(getBonusMatchedInfo(winningInfo.isBonusMatched()))
+                    .append("(").append(getFormattedNumberEachThousandUnit(winningInfo.getPrizeMoney())).append(")원")
+                    .append(" - ").append(winningMap.get(winningInfo)).append("개")
+                    .append(NEW_LINE);
+        }
+
+        return result.toString();
+    }
+
+    private static String getBonusMatchedInfo(boolean bonusMatched) {
+        if (bonusMatched) {
+            return ", 보너스 볼 일치 ";
+        }
+        return " ";
+    }
+
+    private static String getFormattedNumberEachThousandUnit(int number) {
+        return NumberFormat.getNumberInstance().format(number);
     }
 }
