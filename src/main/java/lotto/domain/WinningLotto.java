@@ -59,4 +59,9 @@ public final class WinningLotto {
                 .filter(winningNumbers::contains)
                 .count();
     }
+
+    /** 로또가 이 당첨 로또의 보너스 번호를 포함하는지 여부를 리턴한다. */
+    public boolean isMatchedBonusNumber(Lotto lotto) {
+        return lotto.contains(bonusNumber);
+    }
 }

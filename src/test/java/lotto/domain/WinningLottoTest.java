@@ -38,4 +38,27 @@ public class WinningLottoTest {
 
         assertThat(matchCount).isEqualTo(3);
     }
+
+    @DisplayName("로또가 보너스 번호를 맞췄음을 판단한다.")
+    @Test
+    void isMatchedBonusNumber_returnTrue_lottoContainsBonusNumber() {
+        int bonusNumber = 10;
+        WinningLotto winningLotto = WinningLotto.of(List.of(1, 2, 3, 4, 5, 6), bonusNumber);
+        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, bonusNumber));
+
+        boolean matchedBonusNumber = winningLotto.isMatchedBonusNumber(lotto);
+
+        assertThat(matchedBonusNumber).isTrue();
+    }
+
+    @DisplayName("로또가 보너스 번호를 맞추지 못했음을 판단한다.")
+    @Test
+    void isMatchedBonusNumber_returnFalse_lottoNotContainsBonusNumber() {
+        WinningLotto winningLotto = WinningLotto.of(List.of(1, 2, 3, 4, 5, 6), 10);
+        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+
+        boolean matchedBonusNumber = winningLotto.isMatchedBonusNumber(lotto);
+
+        assertThat(matchedBonusNumber).isFalse();
+    }
 }
