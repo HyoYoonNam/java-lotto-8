@@ -16,4 +16,14 @@ public class WinningLottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContainingAll("[ERROR]", "중복");
     }
+
+    @DisplayName("당첨 번호 사이에 중복이 존재하면 예외를 발생한다.")
+    @Test
+    void of_throwsException_duplicatesBetweenWinningNumbers() {
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 5);
+        int bonusNumber = 10;
+        assertThatThrownBy(() -> WinningLotto.of(winningNumbers, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("[ERROR]", "중복");
+    }
 }

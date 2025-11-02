@@ -18,6 +18,7 @@ public enum ErrorMessage {
             + LottoConstant.LOTTO_NUMBER_UPPER_RANGE_INCLUSIVE + "까지입니다: "),
     PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE("구입 금액은 "
             + LottoConstant.LOTTO_PRICE_FORMATTED_TEXT + "원 단위여야 합니다: "),
+    DUPLICATES_BETWEEN_WINNING_NUMBERS("당첨 번호 사이에는 중복이 존재할 수 없습니다: "),
     DUPLICATES_BETWEEN_WINNING_NUMBERS_AND_BONUS_NUMBER("보너스 번호는 당첨 번호와 중복될 수 없습니다: "),
     ;
 

@@ -1,6 +1,8 @@
 package lotto.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lotto.constant.exception.ErrorMessage;
 
 /**
@@ -16,6 +18,12 @@ public final class WinningLotto {
     private final LottoNumber bonusNumber;
 
     private WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+        if (winningNumbers.size() != Set.of(winningNumbers).size()) {
+            throw new IllegalArgumentException(
+                    ErrorMessage.DUPLICATES_BETWEEN_WINNING_NUMBERS.build(winningNumbers)
+            );
+        }
+
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException(
                     ErrorMessage.DUPLICATES_BETWEEN_WINNING_NUMBERS_AND_BONUS_NUMBER.build(bonusNumber));
