@@ -77,6 +77,15 @@ public final class Lotto {
         return duplicates;
     }
 
+    /**
+     * 이 로또가 대상 로또 번호를 가지고 있는지 여부를 리턴한다.
+     *
+     * @param target 로또에 포함되어 있는지 확인할 대상
+     */
+    public boolean contains(final LottoNumber target) {
+        return numbers.contains(target);
+    }
+
     public List<Integer> getNumbers() {
         return numbers.stream()
                 .mapToInt(LottoNumber::getNumber)

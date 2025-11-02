@@ -14,21 +14,14 @@ import lotto.constant.exception.ErrorMessage;
  */
 
 public final class WinningLotto {
-    private final List<LottoNumber> winningNumbers;
+    private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    private WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
-        if (winningNumbers.size() != Set.of(winningNumbers).size()) {
-            throw new IllegalArgumentException(
-                    ErrorMessage.DUPLICATES_BETWEEN_WINNING_NUMBERS.build(winningNumbers)
-            );
-        }
-
+    private WinningLotto(Lotto winningNumbers, LottoNumber bonusNumber) {
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException(
                     ErrorMessage.DUPLICATES_BETWEEN_WINNING_NUMBERS_AND_BONUS_NUMBER.build(bonusNumber));
         }
-
         this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
@@ -42,21 +35,12 @@ public final class WinningLotto {
      * @throws IllegalArgumentException {@code @param}의 전제 중 하나라도 위반하면 발생한다.
      */
     public static WinningLotto of(List<Integer> winningNumbers, int bonusNumber) {
-        List<Integer> winningNumbersCopy = List.copyOf(winningNumbers);
-
-        List<LottoNumber> winningLottoNumbers = winningNumbersCopy.stream()
-                .map(LottoNumber::valueOf)
-                .toList();
-        LottoNumber bonusLottoNumber = LottoNumber.valueOf(bonusNumber);
-
-        return new WinningLotto(winningLottoNumbers, bonusLottoNumber);
+        return new WinningLotto(Lotto.from(winningNumbers),
+                LottoNumber.valueOf(bonusNumber));
     }
 
     public List<Integer> getWinningNumbers() {
-        return winningNumbers.stream()
-                .mapToInt(LottoNumber::getNumber)
-                .boxed()
-                .toList();
+        return winningNumbers.getNumbers();
     }
 
     public int getBonusNumber() {
