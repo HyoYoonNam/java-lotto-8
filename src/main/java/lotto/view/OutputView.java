@@ -1,7 +1,8 @@
 package lotto.view;
 
 import java.util.List;
-import lotto.domain.Lotto;
+import lotto.domain.lotto.Lotto;
+import lotto.domain.lotto.LottoNumber;
 
 /**
  * 이 클래스는 프로그램의 출력을 담당한다.
@@ -19,7 +20,7 @@ public final class OutputView {
     /**
      * 구입한 로또들의 목록인 {@code lottos}를 받아 구입 개수와 각 로또가 가지는 로또 번호를 출력한다.
      *
-     * @param lottos {@link lotto.domain.LottoNumber} 6개를 가지는 {@link Lotto}들의 목록
+     * @param lottos {@link LottoNumber} 6개를 가지는 {@link Lotto}들의 목록
      */
     public static void printPurchasedLottos(List<Lotto> lottos) {
         List<Lotto> lottosCopy = List.copyOf(lottos);

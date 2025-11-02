@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.lotto;
 
 
 import java.util.HashSet;
@@ -37,7 +37,7 @@ public final class Lotto {
      *
      * @param numbers 이 로또가 가지는 로또 번호들
      *        그 수는 {@value lotto.constant.LottoConstant#LOTTO_NUMBER_SIZE}개여야 하고, 서로 중복되면 안 된다.
-     *        또한 각 로또 번호는 {@link lotto.domain.LottoNumber}의 전제를 만족해야 한다.
+     *        또한 각 로또 번호는 {@link LottoNumber}의 전제를 만족해야 한다.
      * @return {@value lotto.constant.LottoConstant#LOTTO_NUMBER_SIZE}개의 번호를 가지는 로또
      *        이 로또는 불변이기 때문에 가지고 있는 로또 번호를 변경할 수 없습니다.
      * @throws IllegalArgumentException {@code @param}의 전제 중 하나라도 위반하면 발생한다.

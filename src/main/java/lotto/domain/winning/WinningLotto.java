@@ -1,8 +1,9 @@
-package lotto.domain;
+package lotto.domain.winning;
 
-import java.util.HashSet;
 import java.util.List;
 import lotto.constant.exception.ErrorMessage;
+import lotto.domain.lotto.Lotto;
+import lotto.domain.lotto.LottoNumber;
 
 /**
  * 이 클래스는 당첨 번호(6개)와 보너스 번호(1개)를 가지는 당첨 로또이다.

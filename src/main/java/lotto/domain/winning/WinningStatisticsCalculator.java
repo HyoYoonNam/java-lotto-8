@@ -1,10 +1,11 @@
-package lotto.domain;
+package lotto.domain.winning;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import lotto.constant.LottoConstant;
+import lotto.domain.lotto.Lotto;
 
 /**
  * 이 클래스는 당첨 로또와, 구매한 로또 목록을 이용하여 여러 통계랑을 계산한다.
