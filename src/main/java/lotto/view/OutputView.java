@@ -18,7 +18,8 @@ public final class OutputView {
     private static final String NEW_LINE = System.lineSeparator();
     private static final String PURCHASED_MESSAGE_FORMAT = "%d개를 구매했습니다.";
     private static final String PRINT_WINNING_STATISTIC_HEADER = "당첨 통계" + NEW_LINE + "---";
-    private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f입니다.";
+    private static final String PERCENT_LITERAL = "%%";
+    private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f" + PERCENT_LITERAL + "입니다.";
 
     private OutputView() {
     }

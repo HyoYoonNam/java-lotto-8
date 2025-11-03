@@ -269,3 +269,18 @@ private static <T> T getValidUserInput(Supplier<T> readUserInputSupplier, String
 ```
 - 구입 금액, 당첨 번호, 보너스 번호 등을 받는 행위를 `readUserInput`이라는 이름으로 추상화 했다.
 - 로또 게임의 로직상 유효한 입력을 받을 때까지 반복적으로 입력을 요청하는 행위를 `getValidUserInput`으로 추상화 했다.
+
+## 10. String.format()에서 퍼센트 리터럴('%')을 출력하는 방법
+출처: [Java: Literal percent sign in printf statement](https://stackoverflow.com/a/68164779/31425510)
+
+```java
+// 다음과 같이 하면 될 줄 알았는데 안 되더라.
+private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f\\%입니다.";
+// Exception in thread "main" java.util.UnknownFormatConversionException: Conversion = '입' ...
+System.out.println(String.format(RATE_OF_RETURN_FORMAT, 62.5));
+
+// 다음과 같이 % 두 개를 적어주면 된다.
+private static final String RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f%%입니다.";
+// prints "총 수익률은 62.5%입니다."
+System.out.println(String.format(RATE_OF_RETURN_FORMAT, 62.5));
+```
