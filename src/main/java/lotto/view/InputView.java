@@ -23,6 +23,7 @@ public final class InputView {
     private static final String INPUT_DELIMITER = ",";
     private static final String INPUT_IS_NOT_INTEGER = ErrorMessage.MESSAGE_PREFIX + "입력된 값이 정수가 아닙니다: %s";
     private static final String READ_BONUS_NUMBER_PROMPT = "보너스 번호를 입력해 주세요.";
+    private static final String NEW_LINE = System.lineSeparator();
 
     /**
      * 로또를 구입할 금액을 입력받아 리턴한다.
@@ -86,6 +87,8 @@ public final class InputView {
                 validUserInput = true;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
+            } finally {
+                System.out.print(NEW_LINE);
             }
         }
 

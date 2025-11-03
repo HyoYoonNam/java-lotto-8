@@ -42,6 +42,7 @@ public final class OutputView {
         }
 
         System.out.print(textOutputBuilder.toString());
+        System.out.print(NEW_LINE);
     }
 
     /**
@@ -52,7 +53,7 @@ public final class OutputView {
     public static void printWinningStatistic(WinningStatisticDto winningStatisticDto) {
         System.out.println(PRINT_WINNING_STATISTIC_HEADER);
 
-        System.out.println(getWinningInformationLines(winningStatisticDto.winningMap()));
+        System.out.print(getWinningInformationLines(winningStatisticDto.winningMap()));
 
         System.out.println(String.format(RATE_OF_RETURN_FORMAT, winningStatisticDto.rateOfReturn()));
     }
