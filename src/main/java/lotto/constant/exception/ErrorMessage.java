@@ -20,6 +20,7 @@ public enum ErrorMessage {
             + LottoConstant.LOTTO_PRICE_FORMATTED_TEXT + "원 단위여야 합니다: "),
     PURCHASE_AMOUNT_IS_NOT_POSITIVE("구입 금액은 양수여야 합니다: "),
     DUPLICATES_BETWEEN_WINNING_NUMBERS_AND_BONUS_NUMBER("보너스 번호는 당첨 번호와 중복될 수 없습니다: "),
+    OUT_OF_RANGE_MATCH_COUNT("맞춘 당첨 번호의 수가 유효한 범위를 벗어났습니다: "),
     ;
 
     public static final String MESSAGE_PREFIX = "[ERROR] ";
