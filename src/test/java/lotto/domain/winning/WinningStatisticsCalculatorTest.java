@@ -31,7 +31,7 @@ class WinningStatisticsCalculatorTest {
     private static Stream<Arguments> provideCalculateArguments() {
         // given arguments
         int bonusNumber = 10;
-        WinningLotto winningLotto = WinningLotto.of(List.of(1, 2, 3, 4, 5, 6), bonusNumber);
+        WinningLotto winningLotto = WinningLotto.of(Lotto.from(List.of(1, 2, 3, 4, 5, 6)), bonusNumber);
 
         List<Lotto> lottos = List.of(
                 // 1등(1개)

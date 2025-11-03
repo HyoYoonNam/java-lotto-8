@@ -27,16 +27,15 @@ public final class WinningLotto {
     }
 
     /**
-     * 당첨 번호 6개와 보너스 번호 1개를 입력받아 이를 포함하는 인스턴스를 리턴한다.
+     * 당첨 번호와 보너스 번호 1개를 입력받아 이를 포함하는 인스턴스를 리턴한다.
      *
-     * @param winningNumbers 당첨 번호들은 {@link LottoNumber}와 {@link Lotto}의 전제를 만족해야 한다.
+     * @param winningNumbers 당첨 번호들을 가지는 로또
      * @param bonusNumber 보너스 번호는 {@link LottoNumber}의 전제를 따르며,
      *         {@code @param winningNumbers}와 중복되면 안 된다.
      * @throws IllegalArgumentException {@code @param}의 전제 중 하나라도 위반하면 발생한다.
      */
-    public static WinningLotto of(List<Integer> winningNumbers, int bonusNumber) {
-        return new WinningLotto(Lotto.from(winningNumbers),
-                LottoNumber.valueOf(bonusNumber));
+    public static WinningLotto of(Lotto winningNumbers, int bonusNumber) {
+        return new WinningLotto(winningNumbers, LottoNumber.valueOf(bonusNumber));
     }
 
     public List<Integer> getWinningNumbers() {

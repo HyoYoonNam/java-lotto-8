@@ -58,7 +58,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 중복된_당첨_번호를_입력하면_에러_메시지를_출력() {
         assertSimpleTest(() -> {
-            runException("1000", "1,2,3,4,5,5", "10");
+            runException("1000", "1,2,3,4,5,5");
             assertThat(output()).contains(ERROR_MESSAGE);
         });
     }
@@ -66,7 +66,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 범위를_벗어난_당첨_번호를_입력하면_에러_메시지를_출력() {
         assertSimpleTest(() -> {
-            runException("1000", "46,1,2,3,4,5", "10");
+            runException("1000", "46,1,2,3,4,5");
             assertThat(output()).contains(ERROR_MESSAGE);
         });
     }

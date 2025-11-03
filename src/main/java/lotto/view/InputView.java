@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lotto.constant.exception.ErrorMessage;
+import lotto.domain.lotto.Lotto;
 import lotto.domain.winning.WinningLotto;
 
 /**
  * 이 클래스는 사용자로부터 입력을 받는 것과, 입력을 받기 위한 프롬프트 출력을 담당한다.
  *
  * <p>이 클래스는 인스턴스 생성과 상속이 불가능한 정적 유틸 클래스이다.
+ *
+ * <p>이 클래스에 속하는 메서드들에서 언급하는 '유효'하다는 것은 도메인 규칙을 위반하지 않음을 의미한다.
  */
 
 public final class InputView {
@@ -23,44 +26,40 @@ public final class InputView {
     /**
      * 로또를 구입할 금액을 입력받아 리턴한다.
      *
-     * <p>이 메서드는 유효한 금액(양의 정수, 1000원 단위)을 리턴할 수 있을 때까지 반복적으로 프롬프트를 출력하며 입력을 요구한다.
+     * <p>이 메서드는 유효한 구매 금액이 입력될 때까지 반복적으로 프롬프트를 출력하며 입력을 요구한다.
      * 즉, {@code @return}이 유효한 금액임을 보장한다.
      */
     public static int readValidPurchaseAmount() {
         return getValidUserInput(InputView::readLineAsInt, READ_PURCHASE_AMOUNT_PROMPT);
     }
 
-    public static WinningLotto readValidWinningLotto() {
+    /**
+     * 콤마(,)로 구분된 당첨 번호를 입력받아 그 당첨 번호를 가지는 로또를 리턴한다.
+     *
+     * <p>이 메서드는 유효한 당첨 번호가 입력될 때까지 반복적으로 프롬프트를 출력하며 입력을 요구한다.
+     * 즉, {@code @return}이 유효한 당첨 번호를 가지는 로또임을 보장한다.
+     *
+     * @see Lotto
+     * @see lotto.domain.lotto.LottoNumber
+     */
+    public static Lotto readValidWinningNumbers() {
+        return getValidUserInput(InputView::readWinningNumbers, READ_WINNING_NUMBERS_PROMPT);
+    }
+
+    private static Lotto readWinningNumbers() {
+        String[] split = readLine().split(INPUT_DELIMITER);
+        List<Integer> winningNumbers = Stream.of(split)
+                .map(String::strip)
+                .map(InputView::parseToInteger)
+                .toList();
+        return Lotto.from(winningNumbers);
+    }
+
+    public static WinningLotto readValidBonusNumber(Lotto winningNumbers) {
         return getValidUserInput(() -> {
-            List<Integer> winningNumbers = getValidWinningNumbers();
-            int bonusNumber = getValidBonusNumber();
+            int bonusNumber = readLineAsInt();
             return WinningLotto.of(winningNumbers, bonusNumber);
-        }, "");
-    }
-
-    /**
-     * 콤마(,)로 구분된 당첨 번호 목록을 입력받고, 콤마(,) 기준으로 분리하여 리턴한다.
-     *
-     * @return 당첨 번호들
-     * @throws IllegalArgumentException 입력에 콤마(,)를 제외하고, 숫자가 아닌 요소가 있다면 발생한다.
-     */
-    public static List<Integer> getValidWinningNumbers() {
-        return getValidUserInput(() -> {
-            String[] split = readLine().split(INPUT_DELIMITER);
-            return Stream.of(split)
-                    .map(String::strip)
-                    .map(InputView::parseToInteger)
-                    .toList();
-        }, READ_WINNING_NUMBERS_PROMPT);
-    }
-
-    /**
-     * 입력받은 보너스 번호를 리턴한다.
-     *
-     * @throws IllegalArgumentException 입력이 숫자가 아니라면 발생한다.
-     */
-    public static int getValidBonusNumber() {
-        return getValidUserInput(InputView::readLineAsInt, READ_BONUS_NUMBER_PROMPT);
+        }, READ_BONUS_NUMBER_PROMPT);
     }
 
     private static <T> T getValidUserInput(Supplier<T> readUserInputSupplier, String prompt) {
