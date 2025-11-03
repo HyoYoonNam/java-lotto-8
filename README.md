@@ -266,18 +266,24 @@ validate -> validator, produce -> producer처럼 statistics -> statisticor...?�
 당첨 번호 6개와 보너스 번호 1개를 포함하기 위한 객체는 그냥 '당첨 로또' 즉, `WinningLotto`라고 하자!!!
 
 ## 3주 차 목표
-- [ ] 코드 컨벤션 중 class 선언부 다음에 빈 줄을 두지 말라는 컨벤션을 지킨다. (아래 `intellij-java-wooteco-style.xml` 중 일부 참고)
+- [x] 코드 컨벤션 중 class 선언부 다음에 빈 줄을 두지 말라는 컨벤션을 지킨다. (아래 `intellij-java-wooteco-style.xml` 중 일부 참고)
     ```xml
     <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="0"/>
     ```
 - [ ] 하나의 테스트 클래스에서 테스트 케이스가 다양하다면, `@Nested` 애노테이션으로 구분하기
 - [ ] 스트림 내부에서의 예외 처리가 가능함을 인지하고, 필요한 경우 적용하기
-- [ ] 커밋에 깃모지 사용하기
+- [x] 커밋에 깃모지 사용하기
 - [ ] 메서드를 접근 제어자가 아니라, 기능 별(논리적 단위)로 묶기
-- [ ] 커밋 메시지 컨벤션을 지킨다.
+- [x] 커밋 메시지 컨벤션을 지킨다.
   - 2주 차까지는 제목 50자, 본문 72자 제한이 '글자 수' 기준인 줄 알고, 인크루트 글자 수 검사기로 체크했다...!
   - 3주 차 진행 중에 갑자기 의문이 들어 찾아 보니 화면에 표시되는 칸 수 기준이었고, 기존의 내 커밋 제목들은 이를 한참 초과해버렸다.
   - vi 에디터를 사용중인데, [Configuring Git and Vim](https://csswizardry.com/2017/03/configuring-git-and-vim/)을 참고해서 50번 째와 72번 째 컬럼에 색을 넣어 표시해주는 설정을 해서 사용하기로 한다.
 
 ## References
+`STUDY_NOTE`에 출처를 기재한 경우 여기서는 생략될 수 있다.
+
 [VO(Value Object)는 무엇일까? 왜 사용할까?](https://ksh-coding.tistory.com/83)
+
+[방어적 복사를 한 변수의 네이밍](https://stackoverflow.com/questions/39139885/how-to-name-a-variable-that-is-a-copy-of-a-parameter)
+
+[Arrays.stream()과 Stream.of()](https://medium.com/@javageeksociety/arrays-stream-vs-stream-of-in-java-8-be7d6b757e4e)
