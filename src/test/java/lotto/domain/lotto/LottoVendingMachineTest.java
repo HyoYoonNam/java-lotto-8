@@ -23,7 +23,7 @@ public class LottoVendingMachineTest {
         assertThat(lottos).hasSize(expectedLottoCount);
     }
 
-    @DisplayName("구입 금액이 1,000원으로 나누어 떨어지지 않는다면 예외를 발생한다")
+    @DisplayName("구입 금액이 1,000원으로 나누어 떨어지지 않는다면 예외를 발생한다.")
     @ParameterizedTest(name = "[{index}] {0} -> 예외 발생")
     @ValueSource(ints = {
             999, 1001,  // 경계값
@@ -33,5 +33,12 @@ public class LottoVendingMachineTest {
         assertThatThrownBy(() -> LottoVendingMachine.purchase(invalidPurchaseAmount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContainingAll("[ERROR]", "1,000");
+    }
+
+    @DisplayName("구입 금액이 음수면 예외를 발생한다.")
+    @Test
+    void purchase_throwsException_purchaseAmountIsMinus() {
+        assertThatThrownBy(() -> LottoVendingMachine.purchase(-1000))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
