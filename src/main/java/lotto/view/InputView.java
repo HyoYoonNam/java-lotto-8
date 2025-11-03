@@ -2,6 +2,7 @@ package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lotto.constant.exception.ErrorMessage;
 
@@ -21,11 +22,28 @@ public final class InputView {
     /**
      * 로또를 구입할 금액을 입력받아 리턴한다.
      *
-     * @throws IllegalArgumentException 입력이 숫자가 아니라면 발생한다.
+     * <p>이 메서드는 유효한 금액(양의 정수, 1000원 단위)을 리턴할 수 있을 때까지 반복적으로 프롬프트를 출력하며 입력을 요구한다.
+     * 즉, {@code @return}이 유효한 금액임을 보장한다.
      */
-    public static int readPurchaseAmount() {
-        System.out.println(READ_PURCHASE_AMOUNT_PROMPT);
-        return readLineAsInt();
+    public static int readValidPurchaseAmount() {
+        return getValidUserInput(InputView::readLineAsInt, READ_PURCHASE_AMOUNT_PROMPT);
+    }
+
+    private static <T> T getValidUserInput(Supplier<T> readUserInputSupplier, String prompt) {
+        T userInput = null;
+        boolean validUserInput = false;
+
+        while (!validUserInput) {
+            System.out.println(prompt);
+            try {
+                userInput = readUserInputSupplier.get();
+                validUserInput = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return userInput;
     }
 
     /**

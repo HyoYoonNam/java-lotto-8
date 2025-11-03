@@ -226,3 +226,46 @@ result.append(lottoAmount)
 `LottoGameStatisticDto`를 구현했는데, 인텔리제이가 `Convert to record class`라며 추천해 주길래 관련 내용을 찾고, 적용했다.
 
 결론적으로, DTO가 별 다른 값 수정을 필요로 하지 않는다면 `record`로 선언하는 편이 자바 문법상으로 불변임을 보장하고, 불변을 위한 구현 코드들을 생략할 수 있어 좋다.
+
+## 9. 예외가 발생하지 않을 때까지 반복적으로 입력을 요구하기
+출처:
+- https://labex.io/tutorials/java-how-to-handle-invalid-user-input-in-a-java-program-414054
+- 김영한의 자바 고급 3편 - 3장 Functional Interface
+
+일단 기본적인 문법을 사용하여 다음과 같이 코드를 짤 수 있고, 요구 사항을 만족할 수 있다.
+```java
+public static int readPurchaseAmount() {
+    Integer result = null;
+    while (result == null) {
+        System.out.println(READ_PURCHASE_AMOUNT_PROMPT);
+        try {
+            result = readLineAsInt();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    return result;
+}
+```
+하지만 외부로 공개되는 API가 `while ... try ... catch ...` 구조로 인해 더러워짐을 느꼈고, 이후 다른 입력 로직에서도 동일하게 처리해야 되기 때문에 다음과 같이 반복적인 구조를 메서드로 추출했다.
+
+```java
+private static <T> T getValidUserInput(Supplier<T> readUserInputSupplier, String prompt) {
+    T userInput = null;
+    boolean validUserInput = false;
+
+    while (!validUserInput) {
+        System.out.println(prompt);
+        try {
+            userInput = readUserInputSupplier.get();
+            validUserInput = true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    return userInput;
+}
+```
+- 구입 금액, 당첨 번호, 보너스 번호 등을 받는 행위를 `readUserInput`이라는 이름으로 추상화 했다.
+- 로또 게임의 로직상 유효한 입력을 받을 때까지 반복적으로 입력을 요청하는 행위를 `getValidUserInput`으로 추상화 했다.

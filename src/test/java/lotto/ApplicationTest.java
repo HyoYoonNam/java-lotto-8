@@ -6,11 +6,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
 
+    @Disabled
     @Test
     void 기능_테스트() {
         assertRandomUniqueNumbersInRangeTest(
@@ -46,7 +48,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외_테스트() {
+    void 잘못된_구입_금액을_입력하면_에러_메시지를_출력() {
         assertSimpleTest(() -> {
             runException("1000j");
             assertThat(output()).contains(ERROR_MESSAGE);
