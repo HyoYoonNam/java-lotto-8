@@ -41,13 +41,53 @@ public class LottoNumberTest {
     @Nested
     @DisplayName("로또 번호 동등성(equals) 테스트")
     class EqualsTest {
-        @DisplayName("로또 번호가 같으면 동일한 객체로 판단한다")
+        @DisplayName("로또 번호가 같으면 동등한 객체로 판단한다.")
         @Test
         void equals_returnTrue_numbersAreSame() {
             LottoNumber lottoNumberA = LottoNumber.valueOf(1);
             LottoNumber lottoNumberB = LottoNumber.valueOf(1);
 
             assertThat(lottoNumberA.equals(lottoNumberB)).isTrue();
+        }
+
+        @DisplayName("로또 번호가 같지 않으면 동등하지 않은 객체로 판단한다.")
+        @Test
+        void equals_returnFalse_numbersAreNotSame() {
+            LottoNumber lottoNumberA = LottoNumber.valueOf(1);
+            LottoNumber lottoNumberB = LottoNumber.valueOf(2);
+
+            assertThat(lottoNumberA.equals(lottoNumberB)).isFalse();
+        }
+    }
+
+    @Nested
+    @DisplayName("로또 번호 간의 비교(compareTo) 테스트")
+    class CompareToTest {
+        @DisplayName("더 큰 번호와 비교하면 음수를 리턴한다.")
+        @Test
+        void compareTo_returnNegative_compareWithBiggerNumber() {
+            LottoNumber lottoNumber = LottoNumber.valueOf(11);
+            LottoNumber biggerNumber = LottoNumber.valueOf(21);
+
+            assertThat(lottoNumber.compareTo(biggerNumber)).isNegative();
+        }
+
+        @DisplayName("더 작은 번호와 비교하면 양수를 리턴한다.")
+        @Test
+        void compareTo_returnPositive_compareWithSmallerNumber() {
+            LottoNumber lottoNumber = LottoNumber.valueOf(11);
+            LottoNumber smallerNumber = LottoNumber.valueOf(1);
+
+            assertThat(lottoNumber.compareTo(smallerNumber)).isPositive();
+        }
+
+        @DisplayName("같은 번호와 비교하면 0을 리턴한다.")
+        @Test
+        void compareTo_returnZero_compareWithSameNumber() {
+            LottoNumber lottoNumber = LottoNumber.valueOf(11);
+            LottoNumber smallerNumber = LottoNumber.valueOf(11);
+
+            assertThat(lottoNumber.compareTo(smallerNumber)).isZero();
         }
     }
 }
