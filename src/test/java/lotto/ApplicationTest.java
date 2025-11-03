@@ -64,6 +64,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 구입_금액이_양수가_아니면_에러_메시지를_출력() {
+        assertSimpleTest(() -> {
+            runException("-1000");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
     void 중복된_당첨_번호를_입력하면_에러_메시지를_출력() {
         assertSimpleTest(() -> {
             runException("1000", "1,2,3,4,5,5");

@@ -39,10 +39,16 @@ public final class LottoVendingMachine {
     /**
      * 구매할 금액이 유효한지 검증한다.
      *
-     * @param purchaseAmount 검증할 금액; 1,000 단위로 나누어 떨어져야 한다.
+     * @param purchaseAmount 검증할 금액; 다음과 같은 전제를 가진다.
+     *         - 양수여야 한다.
+     *         - 1,000 단위로 나누어 떨어져야 한다.
      * @throws IllegalArgumentException {@code @param}의 전제를 위반하면 발생한다.
      */
     public static void validatePurchaseAmount(final int purchaseAmount) {
+        if (purchaseAmount < 0) {
+            throw new IllegalArgumentException(ErrorMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.build(purchaseAmount));
+        }
+
         boolean isDivisibleByLottoPrice = purchaseAmount % LottoConstant.LOTTO_PRICE == 0;
         if (!isDivisibleByLottoPrice) {
             throw new IllegalArgumentException(ErrorMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE
