@@ -1,0 +1,6 @@
+lotto
+lotto.constant
+lotto.constant.exception
+lotto.domain.lotto
+lotto.domain.winning
+lotto.view

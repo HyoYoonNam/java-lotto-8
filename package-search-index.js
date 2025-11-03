@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"lotto"},{"l":"lotto.constant"},{"l":"lotto.constant.exception"},{"l":"lotto.domain.lotto"},{"l":"lotto.domain.winning"},{"l":"lotto.view"}];updateSearchResults();
