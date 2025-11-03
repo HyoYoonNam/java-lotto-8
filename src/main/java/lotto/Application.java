@@ -10,7 +10,7 @@ public class Application {
         int purchaseAmount = InputView.readValidPurchaseAmount();
 
         Lotto winningNumbers = InputView.readValidWinningNumbers();
-        WinningLotto winningLotto = InputView.readValidBonusNumber(winningNumbers);
+        WinningLotto winningLotto = InputView.readValidBonusNumberForWinningLotto(winningNumbers);
 
     }
 }

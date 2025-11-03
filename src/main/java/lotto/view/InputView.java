@@ -60,7 +60,15 @@ public final class InputView {
         return Lotto.from(winningNumbers);
     }
 
-    public static WinningLotto readValidBonusNumber(Lotto winningNumbers) {
+    /**
+     * 당첨 번호에 대해서 유효한 보너스 번호를 입력 받아 당첨 로또를 리턴한다.
+     *
+     * <p>이 메서드는 유효한 보너스 번호가 입력될 때까지 반복적으로 프롬프트를 출력하며 입력을 요구한다.
+     * 즉, {@code @return}이 유효한 당첨 번호와 보너스 번호를 가지는 당첨 로또임을 보장한다.
+     *
+     * @param winningNumbers 당첨 번호를 가지는 로또
+     */
+    public static WinningLotto readValidBonusNumberForWinningLotto(Lotto winningNumbers) {
         return getValidUserInput(() -> {
             int bonusNumber = readLineAsInt();
             return WinningLotto.of(winningNumbers, bonusNumber);
