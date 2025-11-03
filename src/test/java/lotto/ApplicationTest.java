@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 class ApplicationTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
 
-    @Disabled
     @Test
     void 기능_테스트() {
         assertRandomUniqueNumbersInRangeTest(

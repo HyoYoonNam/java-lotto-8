@@ -68,7 +68,7 @@ public final class OutputView {
             result.append(winningInfo.getMatchCount())
                     .append("개 일치")
                     .append(getBonusMatchedInfo(winningInfo.isBonusMatched()))
-                    .append("(").append(getFormattedNumberEachThousandUnit(winningInfo.getPrizeMoney())).append(")원")
+                    .append("(").append(getFormattedNumberEachThousandUnit(winningInfo.getPrizeMoney())).append("원)")
                     .append(" - ").append(winningMap.get(winningInfo)).append("개")
                     .append(NEW_LINE);
         }
