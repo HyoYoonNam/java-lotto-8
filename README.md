@@ -3,6 +3,32 @@
 
 입출력은 콘솔을 통해 이루어집니다.
 
+## 프로젝트 구조
+```markdown
+src/main/java
+└── lotto
+    ├── Application.java
+    ├── LottoGame.java
+    ├── constant
+    │   ├── LottoConstant.java
+    │   └── exception
+    │       └── ErrorMessage.java
+    ├── domain
+    │   ├── lotto
+    │   │   ├── Lotto.java
+    │   │   ├── LottoNumber.java
+    │   │   └── LottoVendingMachine.java
+    │   └── winning
+    │       ├── WinningInformation.java
+    │       ├── WinningLotto.java
+    │       ├── WinningStatisticDto.java
+    │       └── WinningStatisticsCalculator.java
+    └── view
+        ├── InputView.java
+        └── OutputView.java
+
+```
+
 ## 기능 목록
 - [x] 1개의 로또에는 6개의 숫자가 포함된다.
 - [x] 1개의 로또에는 중복되는 로또 번호가 존재하면 안 된다.
