@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lotto.constant.exception.ErrorMessage;
 import lotto.domain.lotto.Lotto;
+import lotto.domain.lotto.LottoVendingMachine;
 import lotto.domain.winning.WinningLotto;
 
 /**
@@ -30,7 +31,11 @@ public final class InputView {
      * 즉, {@code @return}이 유효한 금액임을 보장한다.
      */
     public static int readValidPurchaseAmount() {
-        return getValidUserInput(InputView::readLineAsInt, READ_PURCHASE_AMOUNT_PROMPT);
+        return getValidUserInput(() -> {
+            int purchaseAmount = InputView.readLineAsInt();
+            LottoVendingMachine.validatePurchaseAmount(purchaseAmount);
+            return purchaseAmount;
+        }, READ_PURCHASE_AMOUNT_PROMPT);
     }
 
     /**

@@ -48,9 +48,17 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 잘못된_구입_금액을_입력하면_에러_메시지를_출력() {
+    void 구매_금액에_숫자가_아닌_것이_포함되면_에러_메시지를_출력() {
         assertSimpleTest(() -> {
             runException("1000j");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void 구입_금액이_1000_단위가_아니면_에러_메시지를_출력() {
+        assertSimpleTest(() -> {
+            runException("1500");
             assertThat(output()).contains(ERROR_MESSAGE);
         });
     }

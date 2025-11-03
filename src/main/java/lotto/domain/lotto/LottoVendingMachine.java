@@ -26,11 +26,7 @@ public final class LottoVendingMachine {
      * @see Lotto
      */
     public static List<Lotto> purchase(final int purchaseAmount) {
-        boolean isDivisibleByLottoPrice = purchaseAmount % LottoConstant.LOTTO_PRICE == 0;
-        if (!isDivisibleByLottoPrice) {
-            throw new IllegalArgumentException(ErrorMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE
-                    .build(purchaseAmount));
-        }
+        validatePurchaseAmount(purchaseAmount);
 
         List<Lotto> lottos = new ArrayList<>();
         int lottoAmount = purchaseAmount / LottoConstant.LOTTO_PRICE;
@@ -38,6 +34,20 @@ public final class LottoVendingMachine {
             lottos.add(issue());
         }
         return List.copyOf(lottos);
+    }
+
+    /**
+     * 구매할 금액이 유효한지 검증한다.
+     *
+     * @param purchaseAmount 검증할 금액; 1,000 단위로 나누어 떨어져야 한다.
+     * @throws IllegalArgumentException {@code @param}의 전제를 위반하면 발생한다.
+     */
+    public static void validatePurchaseAmount(final int purchaseAmount) {
+        boolean isDivisibleByLottoPrice = purchaseAmount % LottoConstant.LOTTO_PRICE == 0;
+        if (!isDivisibleByLottoPrice) {
+            throw new IllegalArgumentException(ErrorMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE_BY_LOTTO_PRICE
+                    .build(purchaseAmount));
+        }
     }
 
     private static Lotto issue() {
