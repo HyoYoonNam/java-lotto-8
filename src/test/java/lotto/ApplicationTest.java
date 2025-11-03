@@ -7,6 +7,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import java.util.List;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
@@ -46,60 +48,72 @@ class ApplicationTest extends NsTest {
         );
     }
 
-    @Test
-    void 구매_금액에_숫자가_아닌_것이_포함되면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("1000j");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
+    @Nested
+    @DisplayName("구입 금액 검증")
+    class purchaseAmountTest {
+        @Test
+        void 구입_금액에_숫자가_아닌_것이_포함되면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("1000j");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
+
+        @Test
+        void 구입_금액이_1000_단위가_아니면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("1500");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
+
+        @Test
+        void 구입_금액이_양수가_아니면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("-1000");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
+
+        @Test
+        void 구입_금액이_정수가_아니면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("11.1");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
     }
 
-    @Test
-    void 구입_금액이_1000_단위가_아니면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("1500");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
+    @Nested
+    @DisplayName("당첨 번호 검증")
+    class WinningNumbersTest {
+        @Test
+        void 중복된_당첨_번호를_입력하면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("1000", "1,2,3,4,5,5");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
+
+        @Test
+        void 범위를_벗어난_당첨_번호를_입력하면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("1000", "46,1,2,3,4,5");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
     }
 
-    @Test
-    void 구입_금액이_양수가_아니면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("-1000");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
-    }
-
-    @Test
-    void 구입_금액이_정수가_아니면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("11.1");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
-    }
-
-    @Test
-    void 중복된_당첨_번호를_입력하면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("1000", "1,2,3,4,5,5");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
-    }
-
-    @Test
-    void 범위를_벗어난_당첨_번호를_입력하면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("1000", "46,1,2,3,4,5");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
-    }
-
-    @Test
-    void 보너스_번호가_당첨_번호와_중복되면_에러_메시지를_출력() {
-        assertSimpleTest(() -> {
-            runException("1000", "1,2,3,4,5,6", "6");
-            assertThat(output()).contains(ERROR_MESSAGE);
-        });
+    @Nested
+    @DisplayName("보너스 번호 검증")
+    class BonusNumberTest {
+        @Test
+        void 보너스_번호가_당첨_번호와_중복되면_에러_메시지를_출력() {
+            assertSimpleTest(() -> {
+                runException("1000", "1,2,3,4,5,6", "6");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            });
+        }
     }
 
     @Override

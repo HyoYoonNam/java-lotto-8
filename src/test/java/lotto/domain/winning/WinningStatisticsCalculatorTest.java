@@ -16,12 +16,9 @@ class WinningStatisticsCalculatorTest {
     @DisplayName("로또의 당첨 통계량들을 계산한다.")
     @ParameterizedTest(name = "[{index}] 성공")
     @MethodSource("provideCalculateArguments")
-    void calculate_returnWinningStatisticsAndRateOfReturn(
-            WinningLotto winningLotto,
-            List<Lotto> lottos,
-            Map<WinningInformation, Integer> expectedStats,
-            double expectedRateOfReturn) {
-
+    void calculate_returnWinningStatisticsAndRateOfReturn(WinningLotto winningLotto, List<Lotto> lottos,
+                                                          Map<WinningInformation, Integer> expectedStats,
+                                                          double expectedRateOfReturn) {
         WinningStatisticDto statistic = WinningStatisticsCalculator.calculate(winningLotto, lottos);
 
         assertThat(statistic.winningMap()).isEqualTo(expectedStats);
